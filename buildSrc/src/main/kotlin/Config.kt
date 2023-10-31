@@ -76,6 +76,19 @@ object Config {
             const val permissions = "pub.devrel:easypermissions:3.0.0"
         }
 
+        object Retrofit {
+            const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
+            const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
+        }
+
+        object Gson {
+            const val gson = "com.google.code.gson:gson:2.10.1"
+        }
+
+        object Annotations {
+            const val annotations = "org.glassfish:javax.annotation:3.1.1"
+        }
+
         object Test {
             const val junit = "junit:junit:4.12"
             const val junitExt = "androidx.test.ext:junit:1.1.2"
