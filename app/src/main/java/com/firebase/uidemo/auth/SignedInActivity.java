@@ -82,8 +82,6 @@ public class SignedInActivity extends AppCompatActivity {
         populateProfile(response);
         populateIdpToken(response);
 
-        mBinding.deleteAccount.setOnClickListener(view -> deleteAccountClicked());
-
         mBinding.signOut.setOnClickListener(view -> signOut());
     }
 
@@ -97,27 +95,6 @@ public class SignedInActivity extends AppCompatActivity {
                     } else {
                         Log.w(TAG, "signOut:failure", task.getException());
                         showSnackbar(R.string.sign_out_failed);
-                    }
-                });
-    }
-
-    public void deleteAccountClicked() {
-        new MaterialAlertDialogBuilder(this)
-                .setMessage("Are you sure you want to delete this account?")
-                .setPositiveButton("Yes, nuke it!", (dialogInterface, i) -> deleteAccount())
-                .setNegativeButton("No", null)
-                .show();
-    }
-
-    private void deleteAccount() {
-        AuthUI.getInstance()
-                .delete(this)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        startActivity(AuthUiActivity.createIntent(SignedInActivity.this));
-                        finish();
-                    } else {
-                        showSnackbar(R.string.delete_account_failed);
                     }
                 });
     }
