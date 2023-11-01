@@ -27,7 +27,6 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.firebase.ui.auth.util.ExtraConstants;
 import com.firebase.uidemo.R;
-import com.firebase.uidemo.databinding.AuthUiLayoutBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -52,8 +51,6 @@ public class AuthUiActivity extends AppCompatActivity
     private static final String GOOGLE_PRIVACY_POLICY_URL = "https://www.google" +
             ".com/policies/privacy/";
 
-    private AuthUiLayoutBinding mBinding;
-
     private final ActivityResultLauncher<Intent> signIn =
             registerForActivityResult(new FirebaseAuthUIActivityResultContract(), this);
 
@@ -65,15 +62,11 @@ public class AuthUiActivity extends AppCompatActivity
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = AuthUiLayoutBinding.inflate(getLayoutInflater());
-        setContentView(mBinding.getRoot());
 
         // Workaround for vector drawables on API 19
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        mBinding.emailProvider.setChecked(true);
-
-        mBinding.signIn.setOnClickListener(view -> signIn());
+        signIn();
     }
 
     public void signIn() {
@@ -89,7 +82,7 @@ public class AuthUiActivity extends AppCompatActivity
         AuthUI.SignInIntentBuilder builder = getAuthUI().createSignInIntentBuilder()
                 .setTheme(getAppTheme())
                 .setLogo(getFirebaseLogo())
-                .setAvailableProviders(getSelectedProviders());
+                .setAvailableProviders(getProviders());
 
         builder.setTosAndPrivacyPolicyUrls(
                 getGoogleTosUrl(),
@@ -103,16 +96,6 @@ public class AuthUiActivity extends AppCompatActivity
         return builder.build();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null && getIntent().getExtras() == null) {
-            startSignedInActivity(null);
-            finish();
-        }
-    }
-
     private void handleSignInResponse(int resultCode, @Nullable IdpResponse response) {
         // Successfully signed in
         if (resultCode == RESULT_OK) {
@@ -121,8 +104,8 @@ public class AuthUiActivity extends AppCompatActivity
         } else {
             // Sign in failed
             if (response == null) {
-                // User pressed back button
-                showSnackbar(R.string.sign_in_cancelled);
+                Log.i(TAG, "User pressed back button");
+                onBackPressed();
                 return;
             }
 
@@ -161,19 +144,15 @@ public class AuthUiActivity extends AppCompatActivity
         return R.drawable.firebase_auth_120dp;
     }
 
-    private List<IdpConfig> getSelectedProviders() {
+    private List<IdpConfig> getProviders() {
         List<IdpConfig> selectedProviders = new ArrayList<>();
 
-        if (mBinding.emailProvider.isChecked()) {
-            selectedProviders.add(new IdpConfig.EmailBuilder()
-                    // Name is required by default.
-                    // Account creation is enabled by default.
-                    .build());
-        }
+        selectedProviders.add(new IdpConfig.EmailBuilder()
+                // Name is required by default.
+                // Account creation is enabled by default.
+                .build());
 
-        if (mBinding.anonymousProvider.isChecked()) {
-            selectedProviders.add(new IdpConfig.AnonymousBuilder().build());
-        }
+        selectedProviders.add(new IdpConfig.AnonymousBuilder().build());
 
         return selectedProviders;
     }
@@ -189,7 +168,7 @@ public class AuthUiActivity extends AppCompatActivity
     }
 
     private void showSnackbar(@StringRes int errorMessageRes) {
-        Snackbar.make(mBinding.getRoot(), errorMessageRes, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), errorMessageRes, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
