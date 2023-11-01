@@ -9,9 +9,10 @@ import android.widget.Toast;
 
 import com.firebase.uidemo.R;
 import com.firebase.uidemo.api.models.Cryptocurrency;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +29,9 @@ public class CoinCapActivity extends AppCompatActivity {
     private EditText etCryptocurrencyName;
 
     private CoinCapRESTAPIService apiService;
+
+    private static final CollectionReference sCryptocurrencyCollection =
+            FirebaseFirestore.getInstance().collection("cryptocurrency");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +69,9 @@ public class CoinCapActivity extends AppCompatActivity {
             public void onResponse(Call<Cryptocurrency> call, Response<Cryptocurrency> response) {
                 Cryptocurrency cryptocurrency = response.body();
                 if (null != cryptocurrency) {
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    String formattedJson = gson.toJson(cryptocurrency.data);
-                    tvResponse.append(formattedJson + "\n\n");
-                    Log.i(LOG_TAG, "getCryptocurrencyInfo => data=" + formattedJson);
+                    onCryptocurrency(cryptocurrency);
+                    tvResponse.append(cryptocurrency + "\n\n");
+                    Log.i(LOG_TAG, "getCryptocurrencyInfo => data=" + cryptocurrency.getData());
                 } else {
                     tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
@@ -99,5 +102,10 @@ public class CoinCapActivity extends AppCompatActivity {
 //        } catch (IOException e) {
 //            Log.e(LOG_TAG, e.getMessage());
 //        }
+    }
+
+    private void onCryptocurrency(@NonNull Cryptocurrency cryptocurrency) {
+        sCryptocurrencyCollection.add(cryptocurrency).addOnFailureListener(this,
+                e -> Log.e(LOG_TAG, "Failed to write message", e));
     }
 }

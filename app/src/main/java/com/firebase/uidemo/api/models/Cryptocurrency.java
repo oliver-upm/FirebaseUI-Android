@@ -11,32 +11,48 @@ public class Cryptocurrency {
 
     @SerializedName("data")
     @Expose
-    public Data data;
+    private Data data;
     @SerializedName("timestamp")
     @Expose
-    public Long timestamp;
+    private Long timestamp;
+
+    /**
+     * No args constructor for use in serialization
+     */
+    public Cryptocurrency() {
+    }
+
+    /**
+     * @param data
+     * @param timestamp
+     */
+    public Cryptocurrency(Data data, Long timestamp) {
+        super();
+        this.data = data;
+        this.timestamp = timestamp;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(Cryptocurrency.class.getName())
-                .append('@')
-                .append(Integer.toHexString(System.identityHashCode(this)))
-                .append('[');
-        sb.append("data");
-        sb.append('=');
-        sb.append(((this.data == null) ? "<null>" : this.data));
-        sb.append(',');
-        sb.append("timestamp");
-        sb.append('=');
-        sb.append(((this.timestamp == null) ? "<null>" : this.timestamp));
-        sb.append(',');
-        if (sb.charAt((sb.length() - 1)) == ',') {
-            sb.setCharAt((sb.length() - 1), ']');
-        } else {
-            sb.append(']');
-        }
-        return sb.toString();
+        return "Cryptocurrency{" +
+                "data=" + data +
+                ", timestamp=" + timestamp +
+                '}';
     }
-
 }
