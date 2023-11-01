@@ -45,7 +45,9 @@
         <activity
             android:name=".auth.AnonymousUpgradeActivity"
             android:label="@string/title_anonymous_upgrade"/>
-
+        <activity
+            android:name=".database.firestore.FirestoreCoinCapActivity"
+            android:label="@string/title_firestore_api_activity" />
         <!-- Firestore demo -->
         <activity
             android:name=".database.firestore.FirestoreChatActivity"

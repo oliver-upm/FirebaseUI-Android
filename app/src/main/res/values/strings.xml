@@ -2,8 +2,9 @@
     <string name="app_name">Firebase UI</string>
 
     <!-- Chooser -->
-    <string name="title_auth_activity">Auth UI Demo</string>
-    <string name="title_api_activity">API REST Connection Demo</string>
+    <string name="title_auth_activity">Auth UI</string>
+    <string name="title_api_activity">API REST Connection</string>
+    <string name="title_firestore_api_activity">Cloud Firestore API REST</string>
     <string name="title_firestore_activity">Cloud Firestore Demo</string>
     <string name="title_firestore_paging_activity">Cloud Firestore Paging Demo</string>
     <string name="title_realtime_database_activity">Realtime Database Demo</string>
@@ -12,6 +13,7 @@
 
     <string name="desc_auth">User registration and authentication using the Firebase Auth UI flow.</string>
     <string name="desc_api">Connect to an external API REST service to extract information using Retrofit.</string>
+    <string name="desc_firestore_api">TODO.</string>
     <string name="desc_anonymous_upgrade">Demonstrates upgrading an anonymous account using FirebaseUI.</string>
     <string name="desc_firestore">Demonstrates using a FirestoreRecyclerAdapter to load data from Cloud Firestore into a RecyclerView for a basic chat app.</string>
     <string name="desc_firestore_paging">Demonstrates using a FirestorePagingAdapter to load/infinite scroll paged data from Cloud Firestore.</string>
@@ -105,6 +107,9 @@
     <string name="hintCryptocurrency">bitcoin</string>
     <string name="btnDescription">Search criptocurrency</string>
     <string name="strError">Cryptocurrency not found</string>
+
+    <!-- Firestore API REST -->
+
 
     <!-- Auth UI - Custom AuthMethodPickerLayout -->
     <string name="custom_layout_subheader">Sign in using this nice custom layout!</string>
