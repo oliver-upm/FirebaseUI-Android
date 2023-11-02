@@ -92,20 +92,11 @@ public class CoinCapActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, t.getMessage());
             }
         });
-
-
-        // Síncrona... no aquí => NetworkOnMainThreadException
-//        Call<Country> call_sync = apiService.getCountryByName("spain");
-//        try {
-//            Country country = call_sync.execute().body();
-//            Log.i(LOG_TAG, "SYNC => " + country.toString());
-//        } catch (IOException e) {
-//            Log.e(LOG_TAG, e.getMessage());
-//        }
     }
 
     private void onCryptocurrency(@NonNull Cryptocurrency cryptocurrency) {
         sCryptocurrencyCollection.add(cryptocurrency).addOnFailureListener(this,
                 e -> Log.e(LOG_TAG, "Failed to write message", e));
+        Log.i(LOG_TAG, cryptocurrency.getData().getName() + " added to Firestore");
     }
 }

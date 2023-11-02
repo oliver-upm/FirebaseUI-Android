@@ -12,8 +12,8 @@
     <string name="title_storage_activity">Storage Image Demo</string>
 
     <string name="desc_auth">User registration and authentication using the Firebase Auth UI flow.</string>
-    <string name="desc_api">Connect to an external API REST service to extract information using Retrofit.</string>
-    <string name="desc_firestore_api">TODO.</string>
+    <string name="desc_api">Connect to an external API REST service to extract information using Retrofit and save results in Firestore Database</string>
+    <string name="desc_firestore_api">Display the history of API searches saved in Firestore Database</string>
     <string name="desc_anonymous_upgrade">Demonstrates upgrading an anonymous account using FirebaseUI.</string>
     <string name="desc_firestore">Demonstrates using a FirestoreRecyclerAdapter to load data from Cloud Firestore into a RecyclerView for a basic chat app.</string>
     <string name="desc_firestore_paging">Demonstrates using a FirestorePagingAdapter to load/infinite scroll paged data from Cloud Firestore.</string>
@@ -140,4 +140,21 @@
     <string name="menu_add_data">Add Data</string>
     <string name="hint_message">Say something…</string>
     <string name="paging_finished_message">Reached End of List</string>
+    <string name="volumeUsd24HrLabel">Volume 24Hr($):</string>
+    <string name="rankLabel">Rank:</string>
+    <string name="priceUsdLabel">Price($):</string>
+    <string name="changePercent24HrLabel">Change (24Hr):</string>
+    <string name="marketCapUsdLabel">Market Cap($):</string>
+    <string name="SupplyLabel">Supply:</string>
+    <string name="example_crypto_name">Ethereum</string>
+    <string name="format_crypto_symbol_1">(</string>
+    <string name="example_crypto_symbol">ETH</string>
+    <string name="format_crypto_symbol_2">)</string>
+    <string name="example_crypto_timestamp">24/12/2023 12:02</string>
+    <string name="example_crypto_rank">1</string>
+    <string name="example_crypto_price_usd">xxxxxxxxxxx</string>
+    <string name="example_crypto_percent">xxxxxxxxxxx</string>
+    <string name="example_crypto_market_cap">xxxxxxxxxxx</string>
+    <string name="example_crypto_supply">xxxxxxxxxxx</string>
+    <string name="example_crypto_volume">xxxxxxxxxxx</string>
 </resources>
