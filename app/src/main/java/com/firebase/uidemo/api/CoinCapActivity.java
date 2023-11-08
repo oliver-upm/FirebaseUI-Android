@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.firebase.uidemo.R;
 import com.firebase.uidemo.api.models.Cryptocurrency;
+import com.firebase.uidemo.api.models.Data;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -58,19 +59,25 @@ public class CoinCapActivity extends AppCompatActivity {
 
         // Asíncrona
         call_async.enqueue(new Callback<Cryptocurrency>() {
-
-            /**
-             * Invoked for a received HTTP response.
-             * <p>
-             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
-             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
-             */
             @Override
             public void onResponse(Call<Cryptocurrency> call, Response<Cryptocurrency> response) {
                 Cryptocurrency cryptocurrency = response.body();
-                if (null != cryptocurrency) {
-                    onCryptocurrency(cryptocurrency);
-                    tvResponse.append(cryptocurrency + "\n\n");
+                if (cryptocurrency != null) {
+                    Data data = cryptocurrency.getData();
+                    String dataInfo = "ID: " + data.getId() +
+                            "\nRank: " + data.getRank() +
+                            "\nSymbol: " + data.getSymbol() +
+                            "\nName: " + data.getName() +
+                            "\nSupply: " + data.getSupply() +
+                            "\nMax Supply: " + data.getMaxSupply() +
+                            "\nMarket Cap USD: " + data.getMarketCapUsd() +
+                            "\nVolume USD 24 Hr: " + data.getVolumeUsd24Hr() +
+                            "\nPrice USD: " + data.getPriceUsd() +
+                            "\nChange Percent 24 Hr: " + data.getChangePercent24Hr() +
+                            "\nVWAP 24 Hr: " + data.getVwap24Hr() +
+                            "\nExplorer: " + data.getExplorer();
+                    tvResponse.append(dataInfo + "\n\n");
+                    addCryptocurrency(cryptocurrency);
                     Log.i(LOG_TAG, "getCryptocurrencyInfo => data=" + cryptocurrency.getData());
                 } else {
                     tvResponse.setText(getString(R.string.strError));
@@ -78,10 +85,6 @@ public class CoinCapActivity extends AppCompatActivity {
                 }
             }
 
-            /**
-             * Invoked when a network exception occurred talking to the server or when an unexpected
-             * exception occurred creating the request or processing the response.
-             */
             @Override
             public void onFailure(Call<Cryptocurrency> call, Throwable t) {
                 Toast.makeText(
@@ -94,9 +97,12 @@ public class CoinCapActivity extends AppCompatActivity {
         });
     }
 
-    private void onCryptocurrency(@NonNull Cryptocurrency cryptocurrency) {
-        sCryptocurrencyCollection.add(cryptocurrency).addOnFailureListener(this,
-                e -> Log.e(LOG_TAG, "Failed to write message", e));
-        Log.i(LOG_TAG, cryptocurrency.getData().getName() + " added to Firestore");
+    private void addCryptocurrency(@NonNull Cryptocurrency cryptocurrency) {
+        // Añadir la criptomoneda a Firestore
+        sCryptocurrencyCollection.add(cryptocurrency)
+                .addOnSuccessListener(documentReference ->
+                        Log.i(LOG_TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
+                .addOnFailureListener(e ->
+                        Log.e(LOG_TAG, "Error adding document", e));
     }
 }
