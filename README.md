@@ -1,10 +1,10 @@
 # Práctica Firebase: Autenticación, persistencia y conexión con servicios remotos
 
 
-> https://github.com/oliver-upm/FirebaseUI-Android/tree/develop
+> https://github.com/oliver-upm/FirebaseUI-Android/
 
-> Desarrollado por Oliver Fernández García (@oliver-upm) para la asigantura de Front End para
-> Móviles del Máster en Ingeniería Web de la UPM.
+> Desarrollado por Oliver Fernández García ([**@oliver-upm**](//github.com/oliver-upm)) para la
+> asigantura de Front End para Móviles del Máster en Ingeniería Web de la UPM.
 
 Partiendo del proyecto de [FirebaseUI-Android](https://github.com/firebase/FirebaseUI-Android) como
 ejemplo, se han desarrollado las siguientes
@@ -44,9 +44,9 @@ siguiente funcionalidad.
 ![image](docs/images/7.png)
 
 ## Persistencia: Mostrar historial de búsquedas
-Utilizando los datos almacenados en la base de datos Cloud Firestore, se muestra el historial de las
-últimas 20 búsquedas realizadas ordenadas por fecha de búsqueda (de más reciente a más antigua).
-Así el usuario puede comparar los datos de las criptomonedas en diferentes momentos.
+Utilizando los datos almacenados en la base de datos [Cloud Firestore](https://firebase.google.com/docs/firestore),
+se muestra el historial de las últimas 20 búsquedas realizadas ordenadas por fecha de búsqueda (de más reciente
+a más antigua). Así el usuario puede comparar los datos de las criptomonedas en diferentes momentos.
 
 ![image](docs/images/8.png)
 
